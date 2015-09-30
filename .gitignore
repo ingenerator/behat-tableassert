@@ -1,0 +1,7 @@
+/.vagrant
+/vendor
+/bin
+/.idea
+Thumbs.db
+thumbs.db
+/composer.lock
