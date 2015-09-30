@@ -19,4 +19,5 @@ before_script:
   - if [ "$DEPENDENCIES" = "low" ]; then composer update --prefer-lowest; fi;
 
 script:
-  - true
+  - bin/phpunit
+  - bin/behat
