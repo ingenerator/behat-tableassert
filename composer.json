@@ -1,0 +1,28 @@
+{
+  "name": "ingenerator/behat-tableassert",
+  "description": "Assertions for all sorts of tabular data in behat",
+  "homepage": "https://github.com/ingenerator/behat-tableassert",
+  "type": "library",
+  "license": "BSD-3-Clause",
+  "authors": [
+    {
+      "name": "Andrew Coulton",
+      "email": "andrew@ingenerator.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {},
+  "support": {
+    "source": "https://github.com/ingenerator/behat-tableassert/",
+    "issues": "https://github.com/ingenerator/behat-tableassert/issues"
+  },
+  "config": {
+    "bin-dir": "bin",
+    "preferred-install": "dist"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "0.1.x-dev"
+    }
+  }
+}
