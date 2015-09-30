@@ -11,7 +11,7 @@ cache:
 matrix:
   include:
     - php: 5.4
-    - env: DEPENDENCIES='low'
+      env: DEPENDENCIES='low'
 
 before_script:
   - composer selfupdate
