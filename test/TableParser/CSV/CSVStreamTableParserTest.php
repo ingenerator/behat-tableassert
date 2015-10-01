@@ -4,18 +4,18 @@
  * @licence   BSD-3-Clause
  */
 
-namespace test\Ingenerator\BehatTableAssert\TableParser;
+namespace test\Ingenerator\BehatTableAssert\TableParser\CSV;
 
 
 use Behat\Gherkin\Node\TableNode;
-use Ingenerator\BehatTableAssert\TableParser\CSVStreamTableParser;
+use Ingenerator\BehatTableAssert\TableParser\CSV\CSVStreamTableParser;
 
 class CSVStreamTableParserTest extends \PHPUnit_Framework_TestCase
 {
 
     public function test_it_is_intialisable()
     {
-        $this->assertInstanceOf('Ingenerator\BehatTableAssert\TableParser\CSVStreamTableParser', $this->newSubject());
+        $this->assertInstanceOf('Ingenerator\BehatTableAssert\TableParser\CSV\CSVStreamTableParser', $this->newSubject());
     }
 
     /**

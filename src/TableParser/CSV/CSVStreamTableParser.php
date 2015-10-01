@@ -4,7 +4,7 @@
  * @licence   BSD-3-Clause
  */
 
-namespace Ingenerator\BehatTableAssert\TableParser;
+namespace Ingenerator\BehatTableAssert\TableParser\CSV;
 
 
 use Behat\Gherkin\Node\TableNode;
@@ -23,6 +23,7 @@ class CSVStreamTableParser
      * @param resource $stream
      *
      * @return \Behat\Gherkin\Node\TableNode
+     * @throws \InvalidArgumentException
      */
     public function parse($stream)
     {

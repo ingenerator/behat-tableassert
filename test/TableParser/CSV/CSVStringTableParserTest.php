@@ -3,12 +3,8 @@
  * @author    Andrew Coulton <andrew@ingenerator.com>
  * @licence   BSD-3-Clause
  */
+namespace test\Ingenerator\BehatTableAssert\TableParser\CSV;
 
-namespace test\Ingenerator\BehatTableAssert\TableParser;
-
-
-use Behat\Gherkin\Node\TableNode;
-use Ingenerator\BehatTableAssert\TableParser\CSVStringTableParser;
 use test\mock\Ingenerator\BehatTableAssert\TableParser\MockCSVStreamTableParser;
 use test\mock\Ingenerator\BehatTableAssert\TableParser\ThrowingCSVStreamTableParserStub;
 
@@ -22,14 +18,16 @@ class CSVStringTableParserTest extends \PHPUnit_Framework_TestCase
     public function test_it_is_initialisable()
     {
         $this->assertInstanceOf(
-            'Ingenerator\BehatTableAssert\TableParser\CSVStringTableParser',
+            'Ingenerator\BehatTableAssert\TableParser\CSV\CSVStringTableParser',
             $this->newSubject()
         );
     }
 
     protected function newSubject()
     {
-        return new CSVStringTableParser($this->stream_parser);
+        return new \Ingenerator\BehatTableAssert\TableParser\CSV\CSVStringTableParser(
+            $this->stream_parser
+        );
     }
 
     /**

@@ -3,14 +3,12 @@
  * @author    Andrew Coulton <andrew@ingenerator.com>
  * @licence   BSD-3-Clause
  */
-
-namespace test\Ingenerator\BehatTableAssert\TableParser;
-
+namespace test\Ingenerator\BehatTableAssert\TableParser\CSV;
 
 use Behat\Mink\Driver\CoreDriver;
 use Behat\Mink\Session;
-use Ingenerator\BehatTableAssert\TableParser\CSVStringTableParser;
-use Ingenerator\BehatTableAssert\TableParser\MinkResponseCSVTableParser;
+use Ingenerator\BehatTableAssert\TableParser\CSV\CSVStringTableParser;
+use Ingenerator\BehatTableAssert\TableParser\CSV\MinkResponseCSVTableParser;
 use test\mock\Ingenerator\BehatTableAssert\TableParser\MockCSVStreamTableParser;
 
 class MinkResponseCSVTableParserTest extends \PHPUnit_Framework_TestCase
@@ -24,7 +22,7 @@ class MinkResponseCSVTableParserTest extends \PHPUnit_Framework_TestCase
     public function test_it_is_initialisable()
     {
         $this->assertInstanceOf(
-            'Ingenerator\BehatTableAssert\TableParser\MinkResponseCSVTableParser',
+            'Ingenerator\BehatTableAssert\TableParser\CSV\MinkResponseCSVTableParser',
             $this->newSubject()
         );
     }
@@ -103,6 +101,7 @@ class MinkResponseCSVTableParserTest extends \PHPUnit_Framework_TestCase
         );
     }
 }
+
 
 class ArrayMinkSessionStub extends Session
 {

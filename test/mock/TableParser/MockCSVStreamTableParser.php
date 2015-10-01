@@ -6,9 +6,8 @@
 namespace test\mock\Ingenerator\BehatTableAssert\TableParser;
 
 use Behat\Gherkin\Node\TableNode;
-use Ingenerator\BehatTableAssert\TableParser\CSVStreamTableParser;
 
-class MockCSVStreamTableParser extends CSVStreamTableParser
+class MockCSVStreamTableParser extends \Ingenerator\BehatTableAssert\TableParser\CSV\CSVStreamTableParser
 {
     /**
      * @var \Behat\Gherkin\Node\TableNode

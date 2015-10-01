@@ -4,7 +4,7 @@
  * @licence   BSD-3-Clause
  */
 
-namespace Ingenerator\BehatTableAssert\TableParser;
+namespace Ingenerator\BehatTableAssert\TableParser\CSV;
 
 
 use Behat\Mink\Exception\ExpectationException;

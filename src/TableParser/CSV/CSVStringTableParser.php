@@ -4,7 +4,7 @@
  * @licence   BSD-3-Clause
  */
 
-namespace Ingenerator\BehatTableAssert\TableParser;
+namespace Ingenerator\BehatTableAssert\TableParser\CSV;
 
 /**
  * Parses a CSV string into a TableNode
@@ -30,6 +30,7 @@ class CSVStringTableParser
      * @param string $string
      *
      * @return \Behat\Gherkin\Node\TableNode
+     * @throws \InvalidArgumentException
      */
     public function parse($string)
     {
