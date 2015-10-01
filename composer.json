@@ -27,6 +27,11 @@
       "Ingenerator\\BehatTableAssert\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "test\\mock\\Ingenerator\\BehatTableAssert\\": "test/mock/"
+    }
+  },
   "config": {
     "bin-dir": "bin",
     "preferred-install": "dist"
