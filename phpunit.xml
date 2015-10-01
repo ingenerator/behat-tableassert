@@ -7,7 +7,7 @@
          convertWarningsToExceptions="true">
     <testsuites>
         <testsuite name="behat-tableassert">
-            <directory>./tests/</directory>
+            <directory>./test/</directory>
         </testsuite>
     </testsuites>
 

@@ -29,5 +29,4 @@ README  text eol=lf
 *.sqlite binary
 
 # Ignore paths that should not be included in an archive (eg for a distribution version)
-/features
-/tests
+/test

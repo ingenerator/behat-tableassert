@@ -12,17 +12,10 @@
   ],
   "minimum-stability": "stable",
   "require": {
-    "behat/behat": "^2.4"
+    "behat/gherkin": "^2.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "^4.8",
-    "symfony/config": ">=2.0.5",
-    "symfony/console": ">=2.0.5",
-    "symfony/dependency-injection": ">=2.0.5",
-    "symfony/event-dispatcher": ">=2.0.5",
-    "symfony/finder": ">=2.0.5",
-    "symfony/translation": ">=2.0.5",
-    "symfony/yaml": ">=2.0.5"
+    "phpunit/phpunit": "^4.8"
   },
   "support": {
     "source": "https://github.com/ingenerator/behat-tableassert/",
