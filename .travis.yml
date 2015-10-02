@@ -7,6 +7,8 @@ sudo: false
 cache:
   directories:
     - $HOME/.composer/cache
+    - bin
+    - vendor
 
 matrix:
   include:
