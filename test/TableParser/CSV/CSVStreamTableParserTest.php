@@ -9,8 +9,9 @@ namespace test\Ingenerator\BehatTableAssert\TableParser\CSV;
 
 use Behat\Gherkin\Node\TableNode;
 use Ingenerator\BehatTableAssert\TableParser\CSV\CSVStreamTableParser;
+use test\Ingenerator\BehatTableAssert\TableParser\TableParserTest;
 
-class CSVStreamTableParserTest extends \PHPUnit_Framework_TestCase
+class CSVStreamTableParserTest extends TableParserTest
 {
 
     public function test_it_is_intialisable()
@@ -215,14 +216,6 @@ class CSVStreamTableParserTest extends \PHPUnit_Framework_TestCase
         fwrite($stream, $string);
 
         return $stream;
-    }
-
-    protected function assertTableWithRows(array $expect_table_rows, TableNode $table)
-    {
-        $this->assertSame(
-            $expect_table_rows,
-            $table->getRows()
-        );
     }
 
     /**

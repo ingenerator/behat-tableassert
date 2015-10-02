@@ -13,7 +13,10 @@
   "minimum-stability": "stable",
   "require": {
     "behat/gherkin": "^2.0",
-    "php": "^5.5||^7.0"
+    "php": "^5.5||^7.0",
+    "ext-dom": "*",
+    "ext-SimpleXML": "*",
+    "ext-libxml": "*"
   },
   "require-dev": {
     "phpunit/phpunit": "^4.8",
@@ -33,7 +36,8 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "test\\mock\\Ingenerator\\BehatTableAssert\\": "test/mock/"
+      "test\\mock\\Ingenerator\\BehatTableAssert\\": "test/mock/",
+      "test\\Ingenerator\\BehatTableAssert\\": "test/"
     }
   },
   "config": {

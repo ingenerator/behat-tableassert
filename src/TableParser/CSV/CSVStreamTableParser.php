@@ -8,6 +8,7 @@ namespace Ingenerator\BehatTableAssert\TableParser\CSV;
 
 
 use Behat\Gherkin\Node\TableNode;
+use Ingenerator\BehatTableAssert\TableNode\PaddedTableNode;
 
 /**
  * Parses a stream containing CSV content into a TableNode
@@ -35,7 +36,7 @@ class CSVStreamTableParser
         try {
             fseek($stream, 0);
 
-            return $this->createTableFromRows($this->readCSVRows($stream));
+            return new PaddedTableNode($this->readCSVRows($stream));
 
         } finally {
             fseek($stream, $original_position);
@@ -52,22 +53,6 @@ class CSVStreamTableParser
         $valid = is_resource($string) && get_resource_type($string) === 'stream';
 
         return $valid;
-    }
-
-    /**
-     * @param $rows
-     *
-     * @return \Behat\Gherkin\Node\TableNode
-     */
-    protected function createTableFromRows($rows)
-    {
-        $column_count = max(array_map('count', $rows));
-        $table        = new TableNode;
-        foreach ($rows as $row) {
-            $table->addRow(array_pad($row, $column_count, '{empty}'));
-        }
-
-        return $table;
     }
 
     /**
