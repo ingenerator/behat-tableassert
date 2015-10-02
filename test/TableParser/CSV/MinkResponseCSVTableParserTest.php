@@ -9,6 +9,7 @@ use Behat\Mink\Driver\CoreDriver;
 use Behat\Mink\Session;
 use Ingenerator\BehatTableAssert\TableParser\CSV\CSVStringTableParser;
 use Ingenerator\BehatTableAssert\TableParser\CSV\MinkResponseCSVTableParser;
+use test\mock\Ingenerator\BehatTableAssert\Mink\ArrayMinkSessionStub;
 use test\mock\Ingenerator\BehatTableAssert\TableParser\MockCSVStreamTableParser;
 
 class MinkResponseCSVTableParserTest extends \PHPUnit_Framework_TestCase
@@ -100,50 +101,4 @@ class MinkResponseCSVTableParserTest extends \PHPUnit_Framework_TestCase
             new CSVStringTableParser($this->stream_parser)
         );
     }
-}
-
-
-class ArrayMinkSessionStub extends Session
-{
-    public function __construct(array $options = [])
-    {
-        parent::__construct(new ArrayMinkDriverStub($options));
-    }
-
-}
-
-class ArrayMinkDriverStub extends CoreDriver
-{
-    protected $options = [
-        'content'    => '',
-        'is_started' => TRUE,
-        'headers'    => [
-        ]
-    ];
-
-    public function __construct(array $options = [])
-    {
-        $this->options = array_merge($this->options, $options);
-    }
-
-    public function setSession(Session $session)
-    {
-
-    }
-
-    public function isStarted()
-    {
-        return $this->options['is_started'];
-    }
-
-    public function getResponseHeaders()
-    {
-        return $this->options['headers'];
-    }
-
-    public function getContent()
-    {
-        return $this->options['content'];
-    }
-
 }
