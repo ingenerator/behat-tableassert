@@ -6,10 +6,9 @@
 
 namespace test\Ingenerator\BehatTableAssert\TableParser;
 
-class CSVTableTest extends ParserFactoryTest
+class HTMLTableTest extends ParserFactoryTest
 {
 
-    const SUBJECT_CLASS = 'Ingenerator\BehatTableAssert\TableParser\CSVTable';
-    const PARSER_GROUP = 'CSV';
-
+    const SUBJECT_CLASS = 'Ingenerator\BehatTableAssert\TableParser\HTMLTable';
+    const PARSER_GROUP = 'HTML';
 }
