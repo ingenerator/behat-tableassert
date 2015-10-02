@@ -6,6 +6,7 @@
 namespace test\mock\Ingenerator\BehatTableAssert\TableParser;
 
 use Behat\Gherkin\Node\TableNode;
+use Ingenerator\BehatTableAssert\TableNode\PaddedTableNode;
 
 class MockCSVStreamTableParser extends \Ingenerator\BehatTableAssert\TableParser\CSV\CSVStreamTableParser
 {
@@ -31,7 +32,7 @@ class MockCSVStreamTableParser extends \Ingenerator\BehatTableAssert\TableParser
 
     public function __construct()
     {
-        $this->table = new TableNode;
+        $this->table = new PaddedTableNode([['stuff']]);
     }
 
     /**

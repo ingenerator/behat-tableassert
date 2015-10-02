@@ -33,15 +33,23 @@ class PaddedTableNode extends TableNode
             throw new \InvalidArgumentException('Table contained no rows');
         }
 
-        $column_count = max(array_map('count', $rows));
-
-        if ($column_count === 0) {
+        if ( ! $column_count = max(array_map('count', $rows))) {
             throw new \InvalidArgumentException('All table rows were empty');
         }
 
-        parent::__construct();
-        foreach ($rows as $row) {
-            $this->addRow(array_pad($row, $column_count, self::EMPTY_CELL_STRING));
+        foreach ($rows as $index => $row) {
+            $rows[$index] = array_pad($row, $column_count, self::EMPTY_CELL_STRING);
+        }
+
+        if (method_exists($this, 'addRow')) {
+            // Support behat/gherkin ^2.0 - rows are assigned after construction
+            parent::__construct();
+            foreach ($rows as $row) {
+                $this->addRow($row);
+            }
+        } else {
+            // Support behat/gherkin ^3.0 - immutable table with rows assigned in constructor
+            parent::__construct($rows);
         }
     }
 }
