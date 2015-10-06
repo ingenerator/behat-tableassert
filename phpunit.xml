@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit bootstrap="test/phpunit_bootstrap.php"
+<phpunit bootstrap="vendor/autoload.php"
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
@@ -16,4 +16,7 @@
             <directory>./src/</directory>
         </whitelist>
     </filter>
+    <php>
+        <ini name="error_reporting" value="30719"/> <!-- E_ALL | E_STRICT -->
+    </php>
 </phpunit>
