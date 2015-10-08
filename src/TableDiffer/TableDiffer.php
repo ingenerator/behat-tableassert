@@ -30,6 +30,11 @@ class TableDiffer
     protected $options;
 
     /**
+     * @var array
+     */
+    protected $diff;
+
+    /**
      * Compare two table nodes and return an array of the differences between them
      *
      * @param \Behat\Gherkin\Node\TableNode $expected
@@ -40,13 +45,16 @@ class TableDiffer
      */
     public function diff(TableNode $expected, TableNode $actual, array $options = [])
     {
+        $this->diff    = ['structure' => [], 'values' => []];
         $this->options = $this->validateOptions($options, $expected);
 
-        if ($diff = $this->diffColumnStructure($expected->getRow(0), $actual->getRow(0))) {
-            return $diff;
+        $this->diffColumnStructure($expected->getRow(0), $actual->getRow(0));
+        if ( ! $this->diff['structure']) {
+            $this->diffValues($expected->getHash(), $actual->getHash());
         }
 
-        return $this->diffValues($expected->getHash(), $actual->getHash());
+        return $this->diff;
+
     }
 
     /**
@@ -103,43 +111,32 @@ class TableDiffer
      */
     protected function diffColumnStructure(array $expected_columns, array $actual_columns)
     {
-        $diff            = [];
         $missing_columns = array_diff($expected_columns, $actual_columns);
         $extra_columns   = array_diff($actual_columns, $expected_columns);
 
         if ($missing_columns OR $extra_columns) {
             if ($missing_columns) {
-                $diff[] = [
-                    'type'    => 'structural',
-                    'message' => sprintf(
-                        "Missing columns: '%s' (got '%s')",
-                        implode("', '", $missing_columns),
-                        implode("', '", $actual_columns)
-                    )
-                ];
+                $this->diff['structure'][] = sprintf(
+                    "Missing columns: '%s' (got '%s')",
+                    implode("', '", $missing_columns),
+                    implode("', '", $actual_columns)
+                );
             }
 
             if ($extra_columns AND ! $this->options['ignoreExtraColumns']) {
-                $diff[] = [
-                    'type'    => 'structural',
-                    'message' => sprintf(
-                        "Unexpected columns: '%s'",
-                        implode("', '", $extra_columns)
-                    )
-                ];
+                $this->diff['structure'][] = sprintf(
+                    "Unexpected columns: '%s'",
+                    implode("', '", $extra_columns)
+                );
             }
         } elseif (($actual_columns != $expected_columns) AND ! $this->options['ignoreColumnSequence']) {
-            $diff[] = [
-                'type'    => 'structural',
-                'message' => sprintf(
-                    "Unexpected column sequence:\n - Expected: '%s'\n - Got:      '%s'",
-                    implode("', '", $expected_columns),
-                    implode("', '", $actual_columns)
-                )
-            ];
+            $this->diff['structure'][] = sprintf(
+                "Unexpected column sequence:\n - Expected: '%s'\n - Got:      '%s'",
+                implode("', '", $expected_columns),
+                implode("', '", $actual_columns)
+            );
         }
 
-        return $diff;
     }
 
     /**
@@ -150,70 +147,55 @@ class TableDiffer
      */
     protected function diffValues(array $expected_hash, array $actual_hash)
     {
-        $diff      = [];
         $row_index = 0;
 
         foreach ($expected_hash as $row_index => $expected_cells) {
             if ( ! isset($actual_hash[$row_index])) {
-                $diff[] = [
-                    'type'    => 'structural',
-                    'message' => sprintf(
-                        'Missing row #%d (expected: %s)',
-                        $row_index + 1,
-                        implode(', ', $expected_cells)
-                    )
-                ];
+                $this->diff['structure'][] = sprintf(
+                    'Missing row #%d (expected: %s)',
+                    $row_index + 1,
+                    implode(', ', $expected_cells)
+                );
                 continue;
             }
-            $diff = array_merge(
-                $diff,
-                $this->diffRow(
-                    $expected_cells,
-                    $actual_hash[$row_index],
-                    $row_index
-                )
+            $this->diffRow(
+                $expected_cells,
+                $actual_hash[$row_index],
+                $row_index
             );
         }
 
         for ($row_index = $row_index + 1; $row_index < count($actual_hash); $row_index++) {
-            $diff[] = [
-                'type'    => 'structural',
-                'message' => sprintf(
-                    'Additional row #%d (got: %s)',
-                    $row_index + 1,
-                    implode(', ', $actual_hash[$row_index])
-                )
-            ];
+            $this->diff['structure'][] = sprintf(
+                'Additional row #%d (got: %s)',
+                $row_index + 1,
+                implode(', ', $actual_hash[$row_index])
+            );
         }
-
-        return $diff;
     }
 
     /**
-     * @param $expected_cells
-     * @param $actual_cells
-     * @param $row_index
+     * @param string[] $expected_cells
+     * @param string[] $actual_cells
+     * @param int      $row_index
      *
      * @return array
      */
     protected function diffRow($expected_cells, $actual_cells, $row_index)
     {
-        $diff = [];
+        $row_number = $row_index + 1;
         foreach ($expected_cells as $column => $expected_value) {
             $actual_value = $actual_cells[$column];
 
             if ( ! ($this->isEquivalent($column, $expected_value, $actual_value))) {
-                $diff[] = [
-                    'type'   => 'value',
-                    'row'    => $row_index + 1,
+                $this->diff['values']["$column#$row_number"] = [
+                    'row'    => $row_number,
                     'col'    => $column,
                     'expect' => $expected_value,
                     'actual' => $actual_value
                 ];
             }
         }
-
-        return $diff;
     }
 
     /**

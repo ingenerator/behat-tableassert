@@ -174,7 +174,10 @@ class TableDifferTest extends \PHPUnit_Framework_TestCase
         $actual   = $this->parseTableString("Wrong,B\nX,2");
         $this->assertSame(
             [
-                ['type' => 'value', 'row' => 1, 'col' => 'Wrong', 'expect' => '1', 'actual' => 'X']
+                'structure' => [],
+                'values'    => [
+                    'Wrong#1' => ['row' => 1, 'col' => 'Wrong', 'expect' => '1', 'actual' => 'X']
+                ]
             ],
             $this->newSubject()->diff($expected, $actual)
         );
@@ -186,9 +189,12 @@ class TableDifferTest extends \PHPUnit_Framework_TestCase
         $actual   = $this->parseTableString("One,Two\nX,Z\nP,4");
         $this->assertSame(
             [
-                ['type' => 'value', 'row' => 1, 'col' => 'One', 'expect' => '1', 'actual' => 'X'],
-                ['type' => 'value', 'row' => 1, 'col' => 'Two', 'expect' => '2', 'actual' => 'Z'],
-                ['type' => 'value', 'row' => 2, 'col' => 'One', 'expect' => '3', 'actual' => 'P']
+                'structure' => [],
+                'values'    => [
+                    'One#1' => ['row' => 1, 'col' => 'One', 'expect' => '1', 'actual' => 'X'],
+                    'Two#1' => ['row' => 1, 'col' => 'Two', 'expect' => '2', 'actual' => 'Z'],
+                    'One#2' => ['row' => 2, 'col' => 'One', 'expect' => '3', 'actual' => 'P']
+                ]
             ],
             $this->newSubject()->diff($expected, $actual)
         );
@@ -249,8 +255,11 @@ class TableDifferTest extends \PHPUnit_Framework_TestCase
         $actual   = $this->parseTableString($table);
         $this->assertSame(
             [
-                ['type' => 'value', 'row' => 1, 'col' => 'One', 'expect' => '1', 'actual' => '1'],
-                ['type' => 'value', 'row' => 2, 'col' => 'One', 'expect' => '3', 'actual' => '3']
+                'structure' => [],
+                'values'    => [
+                    'One#1' => ['row' => 1, 'col' => 'One', 'expect' => '1', 'actual' => '1'],
+                    'One#2' => ['row' => 2, 'col' => 'One', 'expect' => '3', 'actual' => '3']
+                ],
             ],
             $this->newSubject()->diff(
                 $expected,
@@ -295,15 +304,11 @@ class TableDifferTest extends \PHPUnit_Framework_TestCase
      */
     protected function assertOnlyStructuralDifferences($expect_messages, $expected, $actual)
     {
-        $expected_errors = [];
-        foreach ($expect_messages as $message) {
-            $expected_errors[] = [
-                'type'    => 'structural',
-                'message' => $message
-            ];
-        };
         $this->assertSame(
-            $expected_errors,
+            [
+                'structure' => $expect_messages,
+                'values'    => [],
+            ],
             $this->newSubject()->diff($expected, $actual)
         );
     }
@@ -316,7 +321,10 @@ class TableDifferTest extends \PHPUnit_Framework_TestCase
     protected function assertNoDifference($expect, $actual, $options)
     {
         $this->assertSame(
-            [],
+            [
+                'structure' => [],
+                'values'    => []
+            ],
             $this->newSubject()->diff(
                 $this->parseTableString($expect),
                 $this->parseTableString($actual),
