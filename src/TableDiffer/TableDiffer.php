@@ -45,13 +45,15 @@ class TableDiffer
      */
     public function diff(TableNode $expected, TableNode $actual, array $options = [])
     {
-        $this->diff    = ['structure' => [], 'values' => []];
+        $this->diff    = ['different' => NULL, 'structure' => [], 'values' => []];
         $this->options = $this->validateOptions($options, $expected);
 
         $this->diffColumnStructure($expected->getRow(0), $actual->getRow(0));
         if ( ! $this->diff['structure']) {
             $this->diffValues($expected->getHash(), $actual->getHash());
         }
+
+        $this->diff['different'] = ($this->diff['structure'] OR $this->diff['values']);
 
         return $this->diff;
 
@@ -140,8 +142,8 @@ class TableDiffer
     }
 
     /**
-     * @param string[] $expected_hash
-     * @param string[] $actual_hash
+     * @param array[] $expected_hash
+     * @param array[] $actual_hash
      *
      * @return array of differences
      */

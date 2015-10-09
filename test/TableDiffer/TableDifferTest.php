@@ -174,6 +174,7 @@ class TableDifferTest extends \PHPUnit_Framework_TestCase
         $actual   = $this->parseTableString("Wrong,B\nX,2");
         $this->assertSame(
             [
+                'different' => TRUE,
                 'structure' => [],
                 'values'    => [
                     'Wrong#1' => ['row' => 1, 'col' => 'Wrong', 'expect' => '1', 'actual' => 'X']
@@ -189,6 +190,7 @@ class TableDifferTest extends \PHPUnit_Framework_TestCase
         $actual   = $this->parseTableString("One,Two\nX,Z\nP,4");
         $this->assertSame(
             [
+                'different' => TRUE,
                 'structure' => [],
                 'values'    => [
                     'One#1' => ['row' => 1, 'col' => 'One', 'expect' => '1', 'actual' => 'X'],
@@ -255,6 +257,7 @@ class TableDifferTest extends \PHPUnit_Framework_TestCase
         $actual   = $this->parseTableString($table);
         $this->assertSame(
             [
+                'different' => TRUE,
                 'structure' => [],
                 'values'    => [
                     'One#1' => ['row' => 1, 'col' => 'One', 'expect' => '1', 'actual' => '1'],
@@ -306,6 +309,7 @@ class TableDifferTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertSame(
             [
+                'different' => TRUE,
                 'structure' => $expect_messages,
                 'values'    => [],
             ],
@@ -322,6 +326,7 @@ class TableDifferTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertSame(
             [
+                'different' => FALSE,
                 'structure' => [],
                 'values'    => []
             ],
