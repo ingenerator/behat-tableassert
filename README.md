@@ -35,13 +35,14 @@ or more rows in the `<tbody>`. All rows should have the same number of columns, 
   so columns to the right of a missing cell will not line up with the columns above them.
 
 ```php
+use \Ingenerator\BehatTableAssert\TableParser\HTMLTable;
 // Without mink you can parse from a string containing just the <table> tag and children
-$html  = '<table><thead><tr><th>Column</th></tr></thead><tbody><tr><td>Cell</td></tr></tbody></table>';
-$table = \Ingenerator\BehatTableAssert\TableParser\HTMLTable::fromHTMLString($html);
+$html  = '<table><thead><tr><th>Col</th></tr></thead><tbody><tr><td>Cell</td></tr></tbody></table>';
+$table = HTMLTable::fromHTMLString($html);
 
 // With mink you can parse from a NodeElement - again this must be a <table> element
 $assert = $this->getMink()->assertSession();
-$table = \Ingenerator\BehatTableAssert\TableParser\HTMLTable::fromMinkTable($assert->elementExists('css', 'table'));
+$table = HTMLTable::fromMinkTable($assert->elementExists('css', 'table'));
 ```
 
 ### Parsing CSV tables
@@ -51,23 +52,25 @@ to ensure all rows have the same number of columns but this may result in column
 columns towards the left of a row.
 
 ```php
+use \Ingenerator\BehatTableAssert\TableParser\CSVTable;
 // Without mink you can parse from a stream
 $file = fopen('/some/csv/file', 'r');
-$table = \Ingenerator\BehatTableAssert\TableParser\CSVTable::::fromStream($file);
+$table = CSVTable::::fromStream($file);
 fclose($file);
 
 // Or a string if that's easier
-$table = \Ingenerator\BehatTableAssert\TableParser\CSVTable::::fromString(file_get_contents('/some/csv/file');
+$table = CSVTable::::fromString(file_get_contents('/some/csv/file');
 
 // With mink you can also parse directly from a server response *if*:
 //   - the CSV is rendered to the browser as the full raw content of the response
 //   - the response has a text/csv content-type header
-//   - either you omit any `Content-Disposition: Attachment` header, or you're using a goutte-like driver that ignores it
+//   - either you omit any `Content-Disposition: Attachment` header, or you're
+//     using a goutte-like driver that ignores it
 //
-// If your driver respects a Content-Disposition attachment header then it will save your server response to disk
-// somewhere just like a normal browser - you will need to locate the downloaded file and use the string or stream
-// parsing option.
-$table = \Ingenerator\BehatTableAssert\TableParser\CSVTable::fromMinkResponse($this->getMink()->getSession());
+// If your driver respects a Content-Disposition attachment header then it will save
+// your server response to disk somewhere just like a normal browser - you will need
+// to locate the downloaded file and use the string or stream parsing option.
+$table = CSVTable::fromMinkResponse($this->getMink()->getSession());
 ```
 
 
@@ -87,8 +90,10 @@ $tableassert->isSame($expected, $actual, 'Optional extra message');
 // Throws unless tables are equal - same columns containing same data, but in any order
 $tableassert->isEqual($expected, $actual, 'Optional extra message');
 
-// Throws unless actual table contains at least all the specified columns with the same data, ignoring any extra columns
-// Useful if your application produces a large dataset but you only want to specify a few values in your feature file
+// Throws unless actual table contains at least all the specified columns with the same data,
+// ignoring any extra columns.
+// Useful if your application produces a large dataset but you only want to specify a few
+// values in your feature file.
 $tableassert->containsColumns($expected, $actual, 'Optional extra message');
 ```
 
@@ -96,8 +101,8 @@ $tableassert->containsColumns($expected, $actual, 'Optional extra message');
 
 The simple comparisons all rely on a strict string comparison between the cell values in each table. Sometimes that's
 not flexible enough and you need to implement custom logic to decide whether two values are equivalent. We have your
-back. The `isComparable` assertion takes a full array of options for the diff engine, including an array of `comparators`
-- custom callables that return TRUE if the expected and actual value are the same, or FALSE if not.
+back. The `isComparable` assertion takes a full array of options for the diff engine, including an array of
+`comparators` -  custom callables that return TRUE if the expected and actual value are the same, or FALSE if not.
 
 One common case would be where your application generates reports with fixed dates but you want to use relative dates
 in the scenario, or where you don't care if there are small rounding errors in the reported data.
@@ -113,6 +118,7 @@ in the scenario, or where you don't care if there are small rounding errors in t
 ```php
   /**
    * @Then /^I should see a report containing$/
+   */
   function assertReport(TableNode $expected)
   {
     $actual = \Ingenerator\BehatTableAssert\TableParser\CSVTable::fromMinkResponse($this->getMink()->getSession());
@@ -156,11 +162,11 @@ the cell value was as-expected.
 Failed asserting that two tables were equal: some other custom message
 
 |   | X date       | X status | uptime |
-|   |   2015-10-09 |   good   | 99.8  |
-| X | X 2015-09-01 |   poor   | 50.1  |
-| i | ^ 2015-10-08 |   ~      | ~     |
-| X |   2015-10-07 | X good   | 99.7  |
-| i |   ~          | ^ fair   | ~     |
+|   |   2015-10-09 |   good   | 99.8   |
+| X | X 2015-09-01 |   poor   | 50.1   |
+| i | ^ 2015-10-08 |   ~      | ~      |
+| X |   2015-10-07 | X good   | 99.7   |
+| i |   ~          | ^ fair   | ~      |
 ```
 
 # Contributing
