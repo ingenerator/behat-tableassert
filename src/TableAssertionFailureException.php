@@ -30,15 +30,7 @@ class TableAssertionFailureException extends \RuntimeException
     {
         $this->diff        = $diff;
         $this->diff_string = $diff_string;
-        parent::__construct($message);
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->getMessage()."\n\n".$this->diff_string;
+        parent::__construct($message."\n\n".$this->diff_string);
     }
 
     /**
