@@ -5,7 +5,7 @@ Behat-TableAssert is an open source project and we welcome contributions from th
 
 To help us keep the package high-quality, focused and stable we have a few simple rules:
 
-- Always start your contribution in a *new branch* based on our current master branch
+- Always start your contribution in a *new branch* based on our current default branch
 - Start by writing new unit tests to prove the bug / demonstrate how your new feature works.
 - If it's a bugfix, commit your changes to the tests first and in a separate commit to your fix. This makes it easy
   for us to run the tests without your fix and check that they are catching the error you described.
