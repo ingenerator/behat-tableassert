@@ -26,7 +26,7 @@ class DiffFormatter
      */
     public function format($diff, TableNode $actual)
     {
-        if ( ! $diff) {
+        if (empty($diff)) {
             throw new \InvalidArgumentException('Cannot format an empty diff');
         }
 

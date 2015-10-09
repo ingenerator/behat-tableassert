@@ -29,7 +29,7 @@ class PaddedTableNode extends TableNode
      */
     public function __construct(array $rows)
     {
-        if ( ! $rows) {
+        if (empty($rows)) {
             throw new \InvalidArgumentException('Table contained no rows');
         }
 

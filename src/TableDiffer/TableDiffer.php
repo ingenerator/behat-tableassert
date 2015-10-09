@@ -73,7 +73,7 @@ class TableDiffer
         )
         ) {
             throw new \InvalidArgumentException(
-                'Unexpected options: '.implode(', ', $options)
+                'Unexpected options: '.implode(', ', $unknown_options)
             );
         }
 
@@ -167,7 +167,8 @@ class TableDiffer
             );
         }
 
-        for ($row_index = $row_index + 1; $row_index < count($actual_hash); $row_index++) {
+        $actual_count = count($actual_hash);
+        for ($row_index = $row_index + 1; $row_index < $actual_count; $row_index++) {
             $this->diff['structure'][] = sprintf(
                 'Additional row #%d (got: %s)',
                 $row_index + 1,

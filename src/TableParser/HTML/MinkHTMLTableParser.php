@@ -9,7 +9,6 @@ namespace Ingenerator\BehatTableAssert\TableParser\HTML;
 
 use Behat\Mink\Element\NodeElement;
 use Behat\Mink\Exception\ElementHtmlException;
-use Behat\Mink\Session;
 
 /**
  * Parse an HTML table from a NodeElement representing the <table> element into a TableNode

@@ -91,7 +91,7 @@ class MinkResponseCSVTableParser
      */
     protected function isCSVContentType($content_type)
     {
-        list($content_type, $metadata) = explode(';', $content_type.';', 2);
+        list($content_type) = explode(';', $content_type.';', 2);
 
         return $content_type !== 'text/csv';
     }
