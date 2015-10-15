@@ -310,6 +310,26 @@ class HTMLStringTableParserTest extends TableParserTest
         $this->assertTableWithRows($expect_table, $table);
     }
 
+    public function test_it_fills_colspan_cells_with_continuation_mark()
+    {
+        $table = $this->newSubject()->parse(
+            '
+                <table><thead>
+                    <tr><th>Col1</th><td>Col2</td><td>Col3</td></tr>
+                </thead><tbody>
+                    <tr><th colspan="2">Stuff</th><td>Stuff3</td></tr>
+                </tbody></table>
+            '
+        );
+        $this->assertTableWithRows(
+            [
+                ['Col1', 'Col2', 'Col3'],
+                ['Stuff', '...', 'Stuff3']
+            ],
+            $table
+        );
+    }
+
     public function test_it_fills_missing_table_cells()
     {
         $table = $this->newSubject()->parse(
@@ -345,6 +365,50 @@ class HTMLStringTableParserTest extends TableParserTest
                 ['Column 1'],
                 [PaddedTableNode::EMPTY_CELL_STRING],
                 ['Column 1'],
+            ],
+            $table
+        );
+    }
+
+    public function test_it_optionally_ignores_rows_marked_with_data_behat_table_attributes()
+    {
+        $table = $this->newSubject()->parse(
+            '
+                <table><thead>
+                    <tr data-behat-table="ignore"><th colspan="2">Top heading</th><td>Col3</td></tr>
+                    <tr><th>Col1</th><th>Col2</th><td>Col3</td></tr>
+                </thead><tbody>
+                    <tr><td>A1</td><td>B1</td><td>C1</td></tr>
+                    <tr data-behat-table="ignore"><td>A2</td><td>B2</td><td>C2</td></tr>
+                    <tr><td>A3</td><td>B3</td><td>C3</td></tr>
+                </tbody></table>
+            '
+        );
+        $this->assertTableWithRows(
+            [
+                ['Col1', 'Col2', 'Col3'],
+                ['A1', 'B1', 'C1'],
+                ['A3', 'B3', 'C3'],
+            ],
+            $table
+        );
+    }
+
+    public function test_it_optionally_prefixes_cell_text_content()
+    {
+        $table = $this->newSubject()->parse(
+            '
+                <table><thead>
+                    <tr><th data-behat-table-prefix="First">Col1</th><th>Other</th></tr>
+                </thead><tbody>
+                    <tr><th>A1</th><td data-behat-table-prefix="Stuff">A2</td></tr>
+                </tbody></table>
+            '
+        );
+        $this->assertTableWithRows(
+            [
+                ['First Col1', 'Other'],
+                ['A1', 'Stuff A2']
             ],
             $table
         );

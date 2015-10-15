@@ -30,9 +30,23 @@ The HTML table parser expects a well-formed table with a `<thead>` containing a 
 or more rows in the `<tbody>`. All rows should have the same number of columns, which can be any mix of `<th>` and
 `<td>` elements.
 
-> If rows have extra or missing cells (eg due to use of colspan or similar) the parsed table will have extra cells
+> If rows contain cells with a colspan attribute, the parsed table will contain the cell content in the first column
+  and the remaining colspan width will be padded with cells containing `...`.
+
+> If rows have unexpected extra or missing cells (eg due to rendering errors) the parsed table will have extra cells
   added at the end of each row to make all rows the same width. We're not smart enough to pad in the middle of a row,
   so columns to the right of a missing cell will not line up with the columns above them.
+
+> If you want to ignore some rows in the table - for example if they provide additional human-readable
+  headings or other irrelevant presentational content - you can mark them up like this `<tr data-behat-table="ignore">`
+  and the parser will act as though they don't exist.
+
+> If you want to prefix the visible text in some table cells - for example when you have columns that
+  would be visually different to a human but need to be marked in some way for your feature file - you
+  can do this with a data attribute. `<td data-behat-table-prefix="Times - ">Before</td>` will be
+  parsed as `Times - Before`.
+
+
 
 ```php
 use \Ingenerator\BehatTableAssert\TableParser\HTMLTable;
