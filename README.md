@@ -41,6 +41,12 @@ or more rows in the `<tbody>`. All rows should have the same number of columns, 
   headings or other irrelevant presentational content - you can mark them up like this `<tr data-behat-table="ignore">`
   and the parser will act as though they don't exist.
 
+> If you want to prefix the visible text in some table cells - for example when you have columns that
+  would be visually different to a human but need to be marked in some way for your feature file - you
+  can do this with a data attribute. `<td data-behat-table-prefix="Times - ">Before</td>` will be
+  parsed as `Times - Before`.
+
+
 
 ```php
 use \Ingenerator\BehatTableAssert\TableParser\HTMLTable;

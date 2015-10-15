@@ -394,6 +394,26 @@ class HTMLStringTableParserTest extends TableParserTest
         );
     }
 
+    public function test_it_optionally_prefixes_cell_text_content()
+    {
+        $table = $this->newSubject()->parse(
+            '
+                <table><thead>
+                    <tr><th data-behat-table-prefix="First">Col1</th><th>Other</th></tr>
+                </thead><tbody>
+                    <tr><th>A1</th><td data-behat-table-prefix="Stuff">A2</td></tr>
+                </tbody></table>
+            '
+        );
+        $this->assertTableWithRows(
+            [
+                ['First Col1', 'Other'],
+                ['A1', 'Stuff A2']
+            ],
+            $table
+        );
+    }
+
     protected function newSubject()
     {
         return new HTMLStringTableParser;
