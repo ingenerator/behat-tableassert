@@ -310,6 +310,26 @@ class HTMLStringTableParserTest extends TableParserTest
         $this->assertTableWithRows($expect_table, $table);
     }
 
+    public function test_it_fills_colspan_cells_with_continuation_mark()
+    {
+        $table = $this->newSubject()->parse(
+            '
+                <table><thead>
+                    <tr><th>Col1</th><td>Col2</td><td>Col3</td></tr>
+                </thead><tbody>
+                    <tr><th colspan="2">Stuff</th><td>Stuff3</td></tr>
+                </tbody></table>
+            '
+        );
+        $this->assertTableWithRows(
+            [
+                ['Col1', 'Col2', 'Col3'],
+                ['Stuff', '...', 'Stuff3']
+            ],
+            $table
+        );
+    }
+
     public function test_it_fills_missing_table_cells()
     {
         $table = $this->newSubject()->parse(

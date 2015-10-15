@@ -30,7 +30,10 @@ The HTML table parser expects a well-formed table with a `<thead>` containing a 
 or more rows in the `<tbody>`. All rows should have the same number of columns, which can be any mix of `<th>` and
 `<td>` elements.
 
-> If rows have extra or missing cells (eg due to use of colspan or similar) the parsed table will have extra cells
+> If rows contain cells with a colspan attribute, the parsed table will contain the cell content in the first column
+  and the remaining colspan width will be padded with cells containing `...`.
+
+> If rows have unexpected extra or missing cells (eg due to rendering errors) the parsed table will have extra cells
   added at the end of each row to make all rows the same width. We're not smart enough to pad in the middle of a row,
   so columns to the right of a missing cell will not line up with the columns above them.
 

@@ -140,6 +140,11 @@ class HTMLStringTableParser
         foreach ($element->children() as $child) {
             /** @var \SimpleXMLElement $child */
             $row[] = trim(preg_replace('/\s+/', ' ', dom_import_simplexml($child)->textContent));
+
+            $colspan = (int) $child['colspan'];
+            for ($i = 1; $i < $colspan; $i++) {
+                $row[] = '...';
+            }
         }
 
         return $row;
