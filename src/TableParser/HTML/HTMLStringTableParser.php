@@ -13,7 +13,8 @@ use LibXMLError;
 
 /**
  * Parses an HTML string for a <table> element into a TableNode. The table must have a single row
- * in the <thead> and a <tbody> element (though this does not have to contain any rows).
+ * in the <thead> and a <tbody> element (though this does not have to contain any rows). You can
+ * skip additional rows in the table by marking up like <tr data-behat-table="ignore">
  *
  * @package Ingenerator\BehatTableAssert\TableParser\HTML
  */
@@ -39,7 +40,7 @@ class HTMLStringTableParser
             );
         }
 
-        $rows = $this->parseTableRows($html_table);
+        $rows = $this->parseTable($html_table);
 
         return new PaddedTableNode($rows);
     }
@@ -88,20 +89,21 @@ class HTMLStringTableParser
      *
      * @return array
      */
-    protected function parseTableRows(\SimpleXMLElement $html_table)
+    protected function parseTable(\SimpleXMLElement $html_table)
     {
-        $thead = $this->requireSingleChild($html_table, 'thead');
-        $tbody = $this->requireSingleChild($html_table, 'tbody');
+        $header = $this->parseRows($this->requireSingleChild($html_table, 'thead'));
 
-        $rows = [
-            $this->findChildTextValues($this->requireSingleChild($thead, 'tr'))
-        ];
-
-        foreach ($tbody->tr as $body_row) {
-            $rows[] = $this->findChildTextValues($body_row);
+        if (empty($header)) {
+            throw new \InvalidArgumentException('No <tr> found in <thead>');
+        } elseif (count($header) > 1) {
+            throw new \InvalidArgumentException(
+                'Multiple <tr> found in <thead> - you can mark additional rows with data-behat-table="ignore"'
+            );
         }
 
-        return $rows;
+        $body = $this->parseRows($this->requireSingleChild($html_table, 'tbody'));
+
+        return array_merge($header, $body);
     }
 
     /**
@@ -127,6 +129,24 @@ class HTMLStringTableParser
         }
 
         return $child;
+    }
+
+    /**
+     * @param \SimpleXMLElement $section
+     *
+     * @return array
+     */
+    protected function parseRows(\SimpleXMLElement $section)
+    {
+        $rows = [];
+        foreach ($section->tr as $row) {
+            if ( (string) $row['data-behat-table'] === 'ignore') {
+                continue;
+            }
+
+            $rows[] = $this->findChildTextValues($row);
+        }
+        return $rows;
     }
 
     /**

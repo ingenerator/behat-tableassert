@@ -37,6 +37,11 @@ or more rows in the `<tbody>`. All rows should have the same number of columns, 
   added at the end of each row to make all rows the same width. We're not smart enough to pad in the middle of a row,
   so columns to the right of a missing cell will not line up with the columns above them.
 
+> If you want to ignore some rows in the table - for example if they provide additional human-readable
+  headings or other irrelevant presentational content - you can mark them up like this `<tr data-behat-table="ignore">`
+  and the parser will act as though they don't exist.
+
+
 ```php
 use \Ingenerator\BehatTableAssert\TableParser\HTMLTable;
 // Without mink you can parse from a string containing just the <table> tag and children
