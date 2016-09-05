@@ -96,8 +96,10 @@ class HTMLStringTableParser
             // invalid HTML is also accepted so very few parsing errors will be detected.
             $document = new \DOMDocument;
             $document->loadHTML(
-                '<!DOCTYPE html><html><head><meta charset="utf-8"></head>'
-                .'<body>'.trim($html).'</body></html>'
+                '<!DOCTYPE html><html>'
+                .'<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>'
+                .'<body>'.trim($html).'</body>'
+                .'</html>'
             );
 
             $table_elem = $document->getElementsByTagName('body')->item(0)->firstChild;
