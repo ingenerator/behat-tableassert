@@ -35,23 +35,6 @@ class HTMLStringTableParserTest extends TableParserTest
     }
 
     /**
-     * @testWith ["just some random stuff", "Start tag expected"]
-     *           ["<table><tr></table>", "tag mismatch"]
-     */
-    public function test_it_throws_when_parsing_invalid_html_string($string, $message_contains)
-    {
-        try {
-            $this->newSubject()->parse($string);
-            $this->fail(
-                'Failed asserting that exception of type \InvalidArgumentException is thrown'
-            );
-        } catch (\InvalidArgumentException $e) {
-            $this->assertContains($message_contains, $e->getMessage());
-            $this->assertContains($string, $e->getMessage());
-        }
-    }
-
-    /**
      * @testWith ["random", false]
      *           ["random", true]
      *           ["<div></div>", false]
@@ -236,6 +219,13 @@ class HTMLStringTableParserTest extends TableParserTest
                     ['Nothing between this'],
                 ]
             ],
+            // Cells containing (valid) unclosed HTML tags
+            [
+                '<table><thead><tr><th><input type="checkbox">Select</th></tr></thead><tbody></tbody></table>',
+                [
+                    ['Select'],
+                ]
+            ]
         ];
     }
 

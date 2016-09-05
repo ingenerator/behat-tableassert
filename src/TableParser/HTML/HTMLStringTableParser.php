@@ -7,7 +7,6 @@
 namespace Ingenerator\BehatTableAssert\TableParser\HTML;
 
 
-use Behat\Gherkin\Node\TableNode;
 use Ingenerator\BehatTableAssert\TableNode\PaddedTableNode;
 use LibXMLError;
 
@@ -92,7 +91,17 @@ class HTMLStringTableParser
     {
         $old_use_internal_errors = libxml_use_internal_errors(TRUE);
         try {
-            $table = simplexml_load_string($html);
+            // Parse with DOMDocument and force to utf-8 character set, otherwise (valid) unclosed
+            // HTML tags (eg <input>) cause parsing warnings. Unfortunately this means actual
+            // invalid HTML is also accepted so very few parsing errors will be detected.
+            $document = new \DOMDocument;
+            $document->loadHTML(
+                '<!DOCTYPE html><html><head><meta charset="utf-8"></head>'
+                .'<body>'.trim($html).'</body></html>'
+            );
+
+            $table_elem = $document->getElementsByTagName('body')->item(0)->firstChild;
+            $table      = simplexml_import_dom($table_elem);
             if ($errors = libxml_get_errors()) {
                 $this->throwInvalidHTMLException($html, $errors);
             }
