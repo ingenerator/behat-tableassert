@@ -4,6 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+* [FEATURE] Extract parsing html cell text to a standalone method for easier
+  customisation of the parsed text value in extension parsers.
+
 ## 1.1.1 / 2016-09-05
 
 * [BUGFIX]  Don't fail when HTML contains valid unclosed tags eg <input>
