@@ -208,12 +208,7 @@ class HTMLStringTableParser
         $row = [];
         foreach ($table_row->children() as $child) {
             /** @var \SimpleXMLElement $child */
-            $text = trim(preg_replace('/\s+/', ' ', dom_import_simplexml($child)->textContent));
-
-            if ($prefix = (string) $child['data-behat-table-prefix']) {
-                $text = $prefix.' '.$text;
-            }
-            $row[] = $text;
+            $row[] = $this->parseCellText($child);
 
             $colspan = (int) $child['colspan'];
             for ($i = 1; $i < $colspan; $i++) {
@@ -222,5 +217,21 @@ class HTMLStringTableParser
         }
 
         return $row;
+    }
+
+    /**
+     * @param \SimpleXmlElement $cell
+     *
+     * @return string
+     */
+    protected function parseCellText(\SimpleXmlElement $cell)
+    {
+        $text = trim(preg_replace('/\s+/', ' ', dom_import_simplexml($cell)->textContent));
+
+        if ($prefix = (string) $cell['data-behat-table-prefix']) {
+            $text = $prefix.' '.$text;
+        }
+
+        return $text;
     }
 }
