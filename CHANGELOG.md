@@ -4,6 +4,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## 1.2.0 / 2019-04-03
+
+* Ensure compatibility with php7.2
+
+* Drop support for php5
+
 * [FEATURE] Extract parsing html cell text to a standalone method for easier
   customisation of the parsed text value in extension parsers.
 
