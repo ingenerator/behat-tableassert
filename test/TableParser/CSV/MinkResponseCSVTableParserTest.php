@@ -12,7 +12,7 @@ use Ingenerator\BehatTableAssert\TableParser\CSV\MinkResponseCSVTableParser;
 use test\mock\Ingenerator\BehatTableAssert\Mink\ArrayMinkSessionStub;
 use test\mock\Ingenerator\BehatTableAssert\TableParser\MockCSVStreamTableParser;
 
-class MinkResponseCSVTableParserTest extends \PHPUnit_Framework_TestCase
+class MinkResponseCSVTableParserTest extends \PHPUnit\Framework\TestCase
 {
 
     /**

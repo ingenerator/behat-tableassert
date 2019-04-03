@@ -13,7 +13,7 @@ use Ingenerator\BehatTableAssert\TableParser\HTML\MinkHTMLTableParser;
 use test\mock\Ingenerator\BehatTableAssert\Mink\ArrayMinkSessionStub;
 use test\mock\Ingenerator\BehatTableAssert\TableParser\MockHTMLStringTableParser;
 
-class MinkHTMLTableParserTest extends \PHPUnit_Framework_TestCase
+class MinkHTMLTableParserTest extends \PHPUnit\Framework\TestCase
 {
 
     /**
@@ -73,7 +73,7 @@ class StringNodeElementStub extends NodeElement
 
     public function getTagName()
     {
-        preg_match('_^<([^>]+)>_', $this->html, $matches);
+        \preg_match('_^<([^>]+)>_', $this->html, $matches);
 
         return $matches[1];
     }

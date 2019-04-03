@@ -58,7 +58,7 @@ class DiffFormatter
      */
     protected function formatStructureDiff($structural_differences, $has_value_differences)
     {
-        if ((count($structural_differences) === 1) AND ! $has_value_differences) {
+        if ((\count($structural_differences) === 1) AND ! $has_value_differences) {
             return 'Structural difference: '.$structural_differences[0];
         }
 
@@ -67,10 +67,10 @@ class DiffFormatter
             '-----------------------'
         ];
         foreach ($structural_differences as $message) {
-            $string[] = ' - '.str_replace("\n", "\n   ", $message);
+            $string[] = ' - '.\str_replace("\n", "\n   ", $message);
         }
 
-        return implode("\n", $string);
+        return \implode("\n", $string);
 
 
     }
@@ -124,7 +124,7 @@ class DiffFormatter
      */
     protected function findDifferenceColumns($diff, $all_columns)
     {
-        $difference_columns = array_fill_keys($all_columns, FALSE);
+        $difference_columns = \array_fill_keys($all_columns, FALSE);
         foreach ($diff['values'] as $difference) {
             $difference_columns[$difference['col']] = TRUE;
         }

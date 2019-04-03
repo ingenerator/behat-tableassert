@@ -9,7 +9,7 @@ namespace test\Ingenerator\BehatTableAssert\TableParser;
 
 use Ingenerator\BehatTableAssert\TableParser\CSVTable;
 
-abstract class ParserFactoryTest extends \PHPUnit_Framework_TestCase
+abstract class ParserFactoryTest extends \PHPUnit\Framework\TestCase
 {
     const SUBJECT_CLASS = '*define me*';
     const PARSER_GROUP = '*define me*';
@@ -30,11 +30,11 @@ abstract class ParserFactoryTest extends \PHPUnit_Framework_TestCase
     public function provider_all_parsers()
     {
         $reflection    = $this->getSubjectReflection();
-        $csv_table_dir = dirname($reflection->getFileName());
+        $csv_table_dir = \dirname($reflection->getFileName());
         $namespace     = $reflection->getNamespaceName();
         $parsers       = [];
-        foreach (glob($csv_table_dir.'/'.static::PARSER_GROUP.'/*TableParser.php') as $class_file) {
-            $class     = basename($class_file, '.php');
+        foreach (\glob($csv_table_dir.'/'.static::PARSER_GROUP.'/*TableParser.php') as $class_file) {
+            $class     = \basename($class_file, '.php');
             $parsers[] = [$namespace.'\\'.static::PARSER_GROUP.'\\'.$class];
         }
 
@@ -48,10 +48,10 @@ abstract class ParserFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $factory = $this->newSubject();
 
-        $class  = basename(str_replace('\\', '/', $parser_class));
+        $class  = \basename(\str_replace('\\', '/', $parser_class));
         $method = 'make'.$class;
         $this->assertTrue(
-            method_exists($factory, $method),
+            \method_exists($factory, $method),
             "$method should be defined on $parser_class"
         );
         $this->assertInstanceOf($parser_class, $factory->$method());

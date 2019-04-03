@@ -77,7 +77,7 @@ class MinkResponseCSVTableParser
      */
     protected function isLikeHTML($response_text)
     {
-        return (preg_match('_^<!DOCTYPE html_i', $response_text) || preg_match(
+        return (\preg_match('_^<!DOCTYPE html_i', $response_text) || \preg_match(
                 '_</html>\s*$_',
                 $response_text
             ));
@@ -91,7 +91,7 @@ class MinkResponseCSVTableParser
      */
     protected function isCSVContentType($content_type)
     {
-        list($content_type) = explode(';', $content_type.';', 2);
+        list($content_type) = \explode(';', $content_type.';', 2);
 
         return $content_type !== 'text/csv';
     }

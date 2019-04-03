@@ -9,7 +9,7 @@ namespace test\Ingenerator\BehatTableAssert\TableParser;
 
 use Behat\Gherkin\Node\TableNode;
 
-abstract class TableParserTest extends \PHPUnit_Framework_TestCase
+abstract class TableParserTest extends \PHPUnit\Framework\TestCase
 {
 
     protected function assertTableWithRows(array $expect_table_rows, TableNode $table)

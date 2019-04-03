@@ -10,7 +10,7 @@ namespace test\Ingenerator\BehatTableAssert\TableDiffer;
 use Ingenerator\BehatTableAssert\TableDiffer\TableDiffer;
 use Ingenerator\BehatTableAssert\TableNode\PaddedTableNode;
 
-class TableDifferTest extends \PHPUnit_Framework_TestCase
+class TableDifferTest extends \PHPUnit\Framework\TestCase
 {
 
     public function test_it_is_initialisable()
@@ -292,8 +292,8 @@ class TableDifferTest extends \PHPUnit_Framework_TestCase
     protected function parseTableString($expect)
     {
         $data = [];
-        foreach (explode("\n", $expect) as $row) {
-            $data[] = explode(',', $row);
+        foreach (\explode("\n", $expect) as $row) {
+            $data[] = \explode(',', $row);
         }
         $expected = new PaddedTableNode($data);
 

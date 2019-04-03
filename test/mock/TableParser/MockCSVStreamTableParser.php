@@ -50,7 +50,7 @@ class MockCSVStreamTableParser extends \Ingenerator\BehatTableAssert\TableParser
 
         $this->parsed = TRUE;
         $this->parsed_stream = $stream;
-        $this->parsed_string = stream_get_contents($stream, -1, 0);
+        $this->parsed_string = \stream_get_contents($stream, -1, 0);
 
         return $this->table;
     }
@@ -70,7 +70,7 @@ class MockCSVStreamTableParser extends \Ingenerator\BehatTableAssert\TableParser
     {
         $this->throwIfNotParsed(__METHOD__);
 
-        return ( ! is_resource($this->parsed_stream));
+        return ( ! \is_resource($this->parsed_stream));
     }
 
     /**

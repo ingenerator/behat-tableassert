@@ -19,7 +19,7 @@ class ArrayMinkDriverStub extends CoreDriver
 
     public function __construct(array $options = [])
     {
-        $this->options = array_merge($this->options, $options);
+        $this->options = \array_merge($this->options, $options);
     }
 
     public function setSession(Session $session)

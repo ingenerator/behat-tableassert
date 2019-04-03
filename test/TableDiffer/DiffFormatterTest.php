@@ -11,7 +11,7 @@ use Behat\Gherkin\Node\PyStringNode;
 use Ingenerator\BehatTableAssert\TableDiffer\DiffFormatter;
 use Ingenerator\BehatTableAssert\TableNode\PaddedTableNode;
 
-class DiffFormatterTest extends \PHPUnit_Framework_TestCase
+class DiffFormatterTest extends \PHPUnit\Framework\TestCase
 {
     public function test_it_is_initialisable()
     {
@@ -88,7 +88,7 @@ class DiffFormatterTest extends \PHPUnit_Framework_TestCase
 
     public function test_it_formats_actual_table_with_inline_value_differences()
     {
-        $expected = implode(
+        $expected = \implode(
             "\n",
             [
                 '|   | A | X B  | X C  | D  |',
@@ -132,7 +132,7 @@ class DiffFormatterTest extends \PHPUnit_Framework_TestCase
 
     public function test_it_formats_structural_differences_before_diff_table_when_both()
     {
-        $expected = implode(
+        $expected = \implode(
             "\n",
             [
                 'Structural differences:',
