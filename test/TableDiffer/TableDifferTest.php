@@ -292,8 +292,8 @@ class TableDifferTest extends \PHPUnit\Framework\TestCase
     protected function parseTableString($expect)
     {
         $data = [];
-        foreach (explode("\n", $expect) as $row) {
-            $data[] = explode(',', $row);
+        foreach (\explode("\n", $expect) as $row) {
+            $data[] = \explode(',', $row);
         }
         $expected = new PaddedTableNode($data);
 

@@ -40,13 +40,13 @@ class CSVStringTableParser
             );
         }
 
-        $stream = fopen('php://memory', 'w');
+        $stream = \fopen('php://memory', 'w');
         try {
-            fwrite($stream, $string);
+            \fwrite($stream, $string);
 
             return $this->stream_parser->parse($stream);
         } finally {
-            fclose($stream);
+            \fclose($stream);
         }
     }
 
@@ -57,11 +57,11 @@ class CSVStringTableParser
      */
     protected function isStringLike($var)
     {
-        if (is_string($var)) {
+        if (\is_string($var)) {
             return TRUE;
         }
 
-        if (is_object($var) AND method_exists($var, '__toString')) {
+        if (\is_object($var) AND \method_exists($var, '__toString')) {
             return TRUE;
         }
 

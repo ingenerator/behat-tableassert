@@ -32,17 +32,17 @@ class CSVStreamTableParserTest extends TableParserTest
      */
     public function test_it_throws_if_asked_to_parse_non_stream_resource()
     {
-        if ( ! function_exists('imagecreate')) {
+        if ( ! \function_exists('imagecreate')) {
             $this->markTestSkipped(
                 'Cannot test with non-stream resource - gd functions not available'
             );
         }
 
-        $stream = imagecreate(1, 1);
+        $stream = \imagecreate(1, 1);
         try {
             $this->newSubject()->parse($stream);
         } finally {
-            imagedestroy($stream);
+            \imagedestroy($stream);
         }
     }
 
@@ -51,8 +51,8 @@ class CSVStreamTableParserTest extends TableParserTest
      */
     public function test_it_throws_if_asked_to_parse_closed_stream()
     {
-        $stream = fopen('php://memory', 'w+');
-        fclose($stream);
+        $stream = \fopen('php://memory', 'w+');
+        \fclose($stream);
         $this->newSubject()->parse($stream);
     }
 
@@ -72,12 +72,12 @@ class CSVStreamTableParserTest extends TableParserTest
     public function test_it_leaves_stream_at_original_position_after_use()
     {
         $stream = $this->givenStreamWith("row,one\nrow,two");
-        fseek($stream, 4);
+        \fseek($stream, 4);
         try {
             $this->newSubject()->parse($stream);
-            $this->assertEquals(4, ftell($stream));
+            $this->assertEquals(4, \ftell($stream));
         } finally {
-            fclose($stream);
+            \fclose($stream);
         }
     }
 
@@ -212,8 +212,8 @@ class CSVStreamTableParserTest extends TableParserTest
     {
         $this->assertInternalType('string', $string, 'Must provide a string for '.__METHOD__);
 
-        $stream = fopen('php://memory', 'w+');
-        fwrite($stream, $string);
+        $stream = \fopen('php://memory', 'w+');
+        \fwrite($stream, $string);
 
         return $stream;
     }
@@ -230,7 +230,7 @@ class CSVStreamTableParserTest extends TableParserTest
         try {
             $table = $this->newSubject()->parse($stream);
         } finally {
-            fclose($stream);
+            \fclose($stream);
         }
 
         return $table;

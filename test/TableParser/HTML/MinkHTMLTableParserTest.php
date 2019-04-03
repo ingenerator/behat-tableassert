@@ -73,7 +73,7 @@ class StringNodeElementStub extends NodeElement
 
     public function getTagName()
     {
-        preg_match('_^<([^>]+)>_', $this->html, $matches);
+        \preg_match('_^<([^>]+)>_', $this->html, $matches);
 
         return $matches[1];
     }

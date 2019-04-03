@@ -65,7 +65,7 @@ class HTMLStringTableParser
      */
     public function parse($html)
     {
-        if ( ! (is_string($html) && $html)) {
+        if ( ! (\is_string($html) && $html)) {
             throw new \InvalidArgumentException('Expected an HTML string');
         }
 
@@ -89,7 +89,7 @@ class HTMLStringTableParser
      */
     protected function parseHTMLString($html)
     {
-        $old_use_internal_errors = libxml_use_internal_errors(TRUE);
+        $old_use_internal_errors = \libxml_use_internal_errors(TRUE);
         try {
             // Parse with DOMDocument and force to utf-8 character set, otherwise (valid) unclosed
             // HTML tags (eg <input>) cause parsing warnings. Unfortunately this means actual
@@ -98,18 +98,18 @@ class HTMLStringTableParser
             $document->loadHTML(
                 '<!DOCTYPE html><html>'
                 .'<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>'
-                .'<body>'.trim($html).'</body>'
+                .'<body>'.\trim($html).'</body>'
                 .'</html>'
             );
 
             $table_elem = $document->getElementsByTagName('body')->item(0)->firstChild;
-            $table      = simplexml_import_dom($table_elem);
-            if ($errors = libxml_get_errors()) {
+            $table      = \simplexml_import_dom($table_elem);
+            if ($errors = \libxml_get_errors()) {
                 $this->throwInvalidHTMLException($html, $errors);
             }
         } finally {
-            libxml_clear_errors();
-            libxml_use_internal_errors($old_use_internal_errors);
+            \libxml_clear_errors();
+            \libxml_use_internal_errors($old_use_internal_errors);
 
         }
 
@@ -124,9 +124,9 @@ class HTMLStringTableParser
     {
         $msg = 'Invalid HTML string:';
         foreach ($errors as $error) {
-            $msg .= strtr(
+            $msg .= \strtr(
                 "\n #code:message (@line:column)",
-                array_map('trim', (array) $error)
+                \array_map('trim', (array) $error)
             );
         }
         $msg .= "\n\n===HTML===\n$html";
@@ -144,7 +144,7 @@ class HTMLStringTableParser
 
         if (empty($header)) {
             throw new \InvalidArgumentException('No <tr> found in <thead>');
-        } elseif (count($header) > 1) {
+        } elseif (\count($header) > 1) {
             throw new \InvalidArgumentException(
                 'Multiple <tr> found in <thead> - you can mark additional rows with data-behat-table="ignore"'
             );
@@ -152,7 +152,7 @@ class HTMLStringTableParser
 
         $body = $this->parseRows($this->requireSingleChild($html_table, 'tbody'));
 
-        return array_merge($header, $body);
+        return \array_merge($header, $body);
     }
 
     /**
@@ -226,7 +226,7 @@ class HTMLStringTableParser
      */
     protected function parseCellText(\SimpleXmlElement $cell)
     {
-        $text = trim(preg_replace('/\s+/', ' ', dom_import_simplexml($cell)->textContent));
+        $text = \trim(\preg_replace('/\s+/', ' ', \dom_import_simplexml($cell)->textContent));
 
         if ($prefix = (string) $cell['data-behat-table-prefix']) {
             $text = $prefix.' '.$text;

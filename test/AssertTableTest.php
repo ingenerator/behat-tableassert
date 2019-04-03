@@ -136,14 +136,14 @@ class AssertTableTest extends \PHPUnit\Framework\TestCase
 
     protected function assertPasses(callable $callback)
     {
-        $result = call_user_func($callback, $this->newSubject());
+        $result = \call_user_func($callback, $this->newSubject());
         $this->assertNull($result, 'Assert methods should not return a value');
     }
 
     protected function assertFails($message_pattern, callable $callback)
     {
         try {
-            call_user_func($callback, $this->newSubject());
+            \call_user_func($callback, $this->newSubject());
             $this->fail('Expected a table assertion failure exception, none got');
         } catch (TableAssertionFailureException $e) {
             $this->assertRegExp($message_pattern, (string) $e);

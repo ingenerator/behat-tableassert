@@ -44,13 +44,13 @@ class HTMLStringTableParserTest extends TableParserTest
         $html,
         $use_errors_before
     ) {
-        $old_setting = libxml_use_internal_errors($use_errors_before);
+        $old_setting = \libxml_use_internal_errors($use_errors_before);
         try {
             $this->newSubject()->parse($html);
         } catch (\Exception $e) { /* ignore */
         }
-        $errors_after     = libxml_get_errors();
-        $use_errors_after = libxml_use_internal_errors($old_setting);
+        $errors_after     = \libxml_get_errors();
+        $use_errors_after = \libxml_use_internal_errors($old_setting);
 
         $this->assertSame([], $errors_after, 'Should clear libxml errors');
         $this->assertEquals(

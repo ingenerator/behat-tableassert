@@ -32,14 +32,14 @@ class CSVStreamTableParser
             throw new \InvalidArgumentException(__METHOD__.' requires a valid stream resource');
         }
 
-        $original_position = ftell($stream);
+        $original_position = \ftell($stream);
         try {
-            fseek($stream, 0);
+            \fseek($stream, 0);
 
             return new PaddedTableNode($this->readCSVRows($stream));
 
         } finally {
-            fseek($stream, $original_position);
+            \fseek($stream, $original_position);
         }
     }
 
@@ -50,7 +50,7 @@ class CSVStreamTableParser
      */
     protected function isValidStream($string)
     {
-        $valid = is_resource($string) && get_resource_type($string) === 'stream';
+        $valid = \is_resource($string) && \get_resource_type($string) === 'stream';
 
         return $valid;
     }
@@ -63,14 +63,14 @@ class CSVStreamTableParser
     protected function readCSVRows($stream)
     {
         $rows = [];
-        while ($row = fgetcsv($stream)) {
+        while ($row = \fgetcsv($stream)) {
             if ($row === [NULL]) {
                 $row = [];
             }
             $rows[] = $row;
         }
 
-        if ( ! array_filter($rows)) {
+        if ( ! \array_filter($rows)) {
             throw new \InvalidArgumentException('The provided CSV was empty');
         }
 
