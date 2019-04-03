@@ -13,7 +13,7 @@ use Ingenerator\BehatTableAssert\TableParser\HTML\MinkHTMLTableParser;
 use test\mock\Ingenerator\BehatTableAssert\Mink\ArrayMinkSessionStub;
 use test\mock\Ingenerator\BehatTableAssert\TableParser\MockHTMLStringTableParser;
 
-class MinkHTMLTableParserTest extends \PHPUnit_Framework_TestCase
+class MinkHTMLTableParserTest extends \PHPUnit\Framework\TestCase
 {
 
     /**

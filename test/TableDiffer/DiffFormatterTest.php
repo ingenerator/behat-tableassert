@@ -11,7 +11,7 @@ use Behat\Gherkin\Node\PyStringNode;
 use Ingenerator\BehatTableAssert\TableDiffer\DiffFormatter;
 use Ingenerator\BehatTableAssert\TableNode\PaddedTableNode;
 
-class DiffFormatterTest extends \PHPUnit_Framework_TestCase
+class DiffFormatterTest extends \PHPUnit\Framework\TestCase
 {
     public function test_it_is_initialisable()
     {

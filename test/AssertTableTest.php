@@ -14,7 +14,7 @@ use Ingenerator\BehatTableAssert\TableNode\PaddedTableNode;
  * @package test\Ingenerator\BehatTableAssert
  * @group   integration
  */
-class AssertTableTest extends \PHPUnit_Framework_TestCase
+class AssertTableTest extends \PHPUnit\Framework\TestCase
 {
 
     public function test_it_is_initialisable()

@@ -8,7 +8,7 @@ namespace test\Ingenerator\BehatTableAssert\TableParser\CSV;
 use test\mock\Ingenerator\BehatTableAssert\TableParser\MockCSVStreamTableParser;
 use test\mock\Ingenerator\BehatTableAssert\TableParser\ThrowingCSVStreamTableParserStub;
 
-class CSVStringTableParserTest extends \PHPUnit_Framework_TestCase
+class CSVStringTableParserTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \test\mock\Ingenerator\BehatTableAssert\TableParser\MockCSVStreamTableParser

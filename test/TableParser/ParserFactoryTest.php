@@ -9,7 +9,7 @@ namespace test\Ingenerator\BehatTableAssert\TableParser;
 
 use Ingenerator\BehatTableAssert\TableParser\CSVTable;
 
-abstract class ParserFactoryTest extends \PHPUnit_Framework_TestCase
+abstract class ParserFactoryTest extends \PHPUnit\Framework\TestCase
 {
     const SUBJECT_CLASS = '*define me*';
     const PARSER_GROUP = '*define me*';
