@@ -13,7 +13,7 @@ cache:
 
 matrix:
   include:
-    - php: 5.5
+    - php: 7.2
       env: DEPENDENCIES='low'
 
 before_script:
