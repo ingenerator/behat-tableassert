@@ -29,4 +29,10 @@ README  text eol=lf
 *.sqlite binary
 
 # Ignore paths that should not be included in an archive (eg for a distribution version)
-/test
+/test export-ignore
+/.gitattributes export-ignore
+/.gitignore export-ignore
+/.travis.yml export-ignore
+/CHANGELOG.md export-ignore
+/CONTRIBUTING.md export-ignore
+/phpunit.xml export-ignore
