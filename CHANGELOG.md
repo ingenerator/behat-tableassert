@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## 1.2.1 / 2020-06-07
+
+* Remove development files from distribution packages (@simonschaufi #8)
+
 ## 1.2.0 / 2019-04-03
 
 * Ensure compatibility with php7.2
