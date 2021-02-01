@@ -30,19 +30,17 @@ class CSVStringTableParserTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function test_it_throws_if_asked_to_parse_non_string()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->newSubject()->parse(1);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function test_it_throws_if_asked_to_parse_object_without_to_string_method()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->newSubject()->parse(new \stdClass);
     }
 
@@ -88,7 +86,7 @@ class CSVStringTableParserTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->stream_parser = new MockCSVStreamTableParser;

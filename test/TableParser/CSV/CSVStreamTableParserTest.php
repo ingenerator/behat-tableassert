@@ -19,19 +19,17 @@ class CSVStreamTableParserTest extends TableParserTest
         $this->assertInstanceOf('Ingenerator\BehatTableAssert\TableParser\CSV\CSVStreamTableParser', $this->newSubject());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function test_it_throws_if_asked_to_parse_a_string()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->newSubject()->parse('string');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function test_it_throws_if_asked_to_parse_non_stream_resource()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         if ( ! \function_exists('imagecreate')) {
             $this->markTestSkipped(
                 'Cannot test with non-stream resource - gd functions not available'
@@ -46,26 +44,25 @@ class CSVStreamTableParserTest extends TableParserTest
         }
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function test_it_throws_if_asked_to_parse_closed_stream()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $stream = \fopen('php://memory', 'w+');
         \fclose($stream);
         $this->newSubject()->parse($stream);
     }
 
     /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage CSV was empty
-     *
      * @testWith [""]
      *           ["\n"]
      *           ["\n\n"]
      */
     public function test_it_throws_when_parsing_empty_csv($empty_csv_string)
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('CSV was empty');
+
         $this->tryParsing($empty_csv_string);
     }
 
@@ -210,7 +207,7 @@ class CSVStreamTableParserTest extends TableParserTest
      */
     protected function givenStreamWith($string)
     {
-        $this->assertInternalType('string', $string, 'Must provide a string for '.__METHOD__);
+        $this->assertIsString($string, 'Must provide a string for '.__METHOD__);
 
         $stream = \fopen('php://memory', 'w+');
         \fwrite($stream, $string);

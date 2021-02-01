@@ -8,6 +8,7 @@ namespace test\Ingenerator\BehatTableAssert\TableParser\HTML;
 
 
 use Behat\Mink\Element\NodeElement;
+use Behat\Mink\Exception\ElementHtmlException;
 use Behat\Mink\Session;
 use Ingenerator\BehatTableAssert\TableParser\HTML\MinkHTMLTableParser;
 use test\mock\Ingenerator\BehatTableAssert\Mink\ArrayMinkSessionStub;
@@ -29,12 +30,11 @@ class MinkHTMLTableParserTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @expectedException \Behat\Mink\Exception\ElementHTMLException
-     * @expectedExceptionMessage Expected a <table>
-     */
     public function test_it_throws_when_parsing_node_that_is_not_a_table()
     {
+        $this->expectException(ElementHtmlException::class);
+        $this->expectExceptionMessage('Expected a <table>');
+
         $this->newSubject()->parse(new StringNodeElementStub('<div></div>'));
     }
 
@@ -46,7 +46,7 @@ class MinkHTMLTableParserTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($table, $this->html_parser->getMockedTable());
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->html_parser = new MockHTMLStringTableParser;
