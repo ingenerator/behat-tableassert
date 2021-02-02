@@ -4,6 +4,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## 1.2.2 / 2021-02-02
+
+* Officially support php8, drop support for php <7.4 - Thanks @jorissteyn #9 :)
+* Switch CI to github actions
+
 ## 1.2.1 / 2020-06-07
 
 * Remove development files from distribution packages (@simonschaufi #8)

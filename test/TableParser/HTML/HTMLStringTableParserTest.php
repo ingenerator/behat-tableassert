@@ -22,15 +22,15 @@ class HTMLStringTableParserTest extends TableParserTest
     }
 
     /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Expected an HTML string
-     *
      * @testWith [""]
      *           [null]
      *           [1]
      */
     public function test_it_throws_when_parsing_non_or_empty_string($value)
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Expected an HTML string');
+
         $this->newSubject()->parse($value);
     }
 
@@ -60,41 +60,37 @@ class HTMLStringTableParserTest extends TableParserTest
         );
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Expected a <table>
-     */
     public function test_it_throws_when_parsing_html_that_is_not_a_table()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Expected a <table>');
+
         $this->newSubject()->parse('<div></div>');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage No <thead> found in <table>
-     */
     public function test_it_throws_when_parsing_table_without_thead()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('No <thead> found in <table>');
+
         $this->newSubject()->parse('<table></table>');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage No <tbody> found in <table>
-     */
     public function test_it_throws_when_parsing_table_without_tbody()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('No <tbody> found in <table>');
+
         $this->newSubject()->parse(
             '<table><thead><tr><th>Stuff</th></tr></thead></table>'
         );
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage No <tr> found in <thead>
-     */
     public function test_it_throws_when_parsing_table_with_no_row_in_thead()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('No <tr> found in <thead>');
+
         $this->newSubject()->parse(
             '
             <table>
@@ -105,12 +101,11 @@ class HTMLStringTableParserTest extends TableParserTest
         );
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Multiple <tr> found in <thead>
-     */
     public function test_it_throws_when_parsing_table_with_multiple_rows_in_thead()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Multiple <tr> found in <thead>');
+
         $this->newSubject()->parse(
             '
             <table>
@@ -124,12 +119,11 @@ class HTMLStringTableParserTest extends TableParserTest
         );
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage All table rows were empty
-     */
     public function test_it_throws_when_parsing_table_with_no_cells()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('All table rows were empty');
+
         $this->newSubject()->parse('<table><thead><tr></tr></thead><tbody></tbody></table>');
     }
 

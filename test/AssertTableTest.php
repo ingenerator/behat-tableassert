@@ -146,7 +146,7 @@ class AssertTableTest extends \PHPUnit\Framework\TestCase
             \call_user_func($callback, $this->newSubject());
             $this->fail('Expected a table assertion failure exception, none got');
         } catch (TableAssertionFailureException $e) {
-            $this->assertRegExp($message_pattern, (string) $e);
+            $this->assertMatchesRegularExpression($message_pattern, (string) $e);
         }
     }
 }

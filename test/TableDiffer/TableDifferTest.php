@@ -21,11 +21,10 @@ class TableDifferTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function test_it_throws_with_unknown_option()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->newSubject()->diff(
             $this->parseTableString("A"),
             $this->parseTableString("B"),
@@ -202,11 +201,10 @@ class TableDifferTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function test_it_throws_with_uncallable_custom_comparator()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->newSubject()->diff(
             $this->parseTableString("A\n1"),
             $this->parseTableString("A\n1"),
@@ -218,11 +216,10 @@ class TableDifferTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function test_it_throws_with_custom_comparator_for_unexpected_column()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->newSubject()->diff(
             $this->parseTableString("A\n1"),
             $this->parseTableString("A\n1"),

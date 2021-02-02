@@ -21,11 +21,9 @@ class DiffFormatterTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function test_it_throws_with_empty_diff()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->newSubject()->format([], new PaddedTableNode([['A']]));
     }
 

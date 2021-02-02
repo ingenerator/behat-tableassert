@@ -6,6 +6,8 @@
 namespace test\Ingenerator\BehatTableAssert\TableParser\CSV;
 
 use Behat\Mink\Driver\CoreDriver;
+use Behat\Mink\Exception\ExpectationException;
+use Behat\Mink\Exception\ResponseTextException;
 use Behat\Mink\Session;
 use Ingenerator\BehatTableAssert\TableParser\CSV\CSVStringTableParser;
 use Ingenerator\BehatTableAssert\TableParser\CSV\MinkResponseCSVTableParser;
@@ -28,28 +30,27 @@ class MinkResponseCSVTableParserTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @expectedException \BadMethodCallException
-     */
     public function test_it_throws_if_driver_is_not_started()
     {
+        $this->expectException(\BadMethodCallException::class);
+
         $this->newSubject()->parse(new ArrayMinkSessionStub(['is_started' => FALSE]));
     }
 
     /**
-     * @expectedException \Behat\Mink\Exception\ExpectationException
      * @testWith [{}]
      *           [{"Content-Type": "text/html"}]
      */
     public function test_it_throws_if_content_type_is_not_csv($headers)
     {
+        $this->expectException(ExpectationException::class);
+
         $this->newSubject()->parse(
             new ArrayMinkSessionStub(['headers' => $headers])
         );
     }
 
     /**
-     * @expectedException \Behat\Mink\Exception\ResponseTextException
      * @testWith ["<!DOCTYPE html>"]
      *           ["<!doctype html>"]
      *           ["<!DOCTYPE html public \"-//W3C//DTD HTML 4.01//EN\">"]
@@ -60,6 +61,8 @@ class MinkResponseCSVTableParserTest extends \PHPUnit\Framework\TestCase
      */
     public function test_it_throws_if_content_looks_like_html($response_text)
     {
+        $this->expectException(ResponseTextException::class);
+
         $this->newSubject()->parse(
             new ArrayMinkSessionStub(
                 [
@@ -89,7 +92,7 @@ class MinkResponseCSVTableParserTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($content, $this->stream_parser->getParsedString());
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->stream_parser = new MockCSVStreamTableParser;
