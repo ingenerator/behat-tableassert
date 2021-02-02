@@ -2,11 +2,9 @@ Behat-TableAssert simplifies working with and asserting against all sorts of tab
 supports Behat v2 and v3. It has a few extra features when used with Mink, but works happily without.
 
 [![License](https://poser.pugx.org/ingenerator/behat-tableassert/license.svg)](https://packagist.org/packages/ingenerator/behat-tableassert)
-[![Build Status](https://travis-ci.org/ingenerator/behat-tableassert.svg?branch=master)](https://travis-ci.org/ingenerator/behat-tableassert)
+[![Build Status](https://github.com/ingenerator/behat-tableassert/workflows/Run%20tests/badge.svg?branch=1.2.x)](https://github.com/ingenerator/behat-tableassert/actions?query=workflow%3A%22Run+tests%22)
 [![Latest Stable Version](https://poser.pugx.org/ingenerator/behat-tableassert/v/stable.svg)](https://packagist.org/packages/ingenerator/behat-tableassert)
 [![Latest Unstable Version](https://poser.pugx.org/ingenerator/behat-tableassert/v/unstable.svg)](https://packagist.org/packages/ingenerator/behat-tableassert)
-[![HHVM Status](http://hhvm.h4cc.de/badge/ingenerator/behat-tableassert.svg?branch=master)](http://hhvm.h4cc.de/package/ingenerator/behat-tableassert)
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/ingenerator/behat-tableassert/badges/quality-score.png?s=ad84e95fc2405712f88a96d89b4f31dfe5c80fae)](https://scrutinizer-ci.com/g/ingenerator/behat-tableassert/)
 [![Total Downloads](https://poser.pugx.org/ingenerator/behat-tableassert/downloads.svg)](https://packagist.org/packages/ingenerator/behat-tableassert)
 
 
