@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## 1.2.3 / 2021-04-21
+
+* Only support PHP8.0.x and ensure we test against the lowest dependencies too
+
 ## 1.2.2 / 2021-02-02
 
 * Officially support php8, drop support for php <7.4 - Thanks @jorissteyn #9 :)
