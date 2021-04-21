@@ -5,3 +5,4 @@
 Thumbs.db
 thumbs.db
 /composer.lock
+.phpunit.result.cache
