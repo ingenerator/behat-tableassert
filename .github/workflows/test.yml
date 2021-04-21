@@ -5,9 +5,6 @@ on:
       # Only mainline branches, features etc are covered on the pull_request trigger
       - '*.x'
   pull_request:
-  schedule:
-    # Build every Monday morning in case of external issues
-    - cron: '0 8 * * 1'
 
 jobs:
   run-tests:
