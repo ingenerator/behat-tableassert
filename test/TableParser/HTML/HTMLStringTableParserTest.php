@@ -219,7 +219,18 @@ class HTMLStringTableParserTest extends TableParserTest
                 [
                     ['Select'],
                 ]
-            ]
+            ],
+            'Table with a "time" element' => [
+                '<table>'.
+                '<thead><tr><td>Header</td><th>Date</th></tr></thead>'.
+                '<tbody>'.
+                '<tr><td>Cell1</td><time datetime="2016-08-30T12:00:00Z">30 Aug 2016</time></tr>'.
+                '</tbody></table>',
+                [
+                  ['Header', 'Date'],
+                  ['Cell1', '30 Aug 2016']
+                ]
+            ],
         ];
     }
 
