@@ -4,6 +4,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## 1.2.5 / 2022-09-16
+
+* Switch to masterminds/html5 for HTML parsing to fix failures when the table contains
+  html5 elements e.g. `<time>` - thanks @RoSko
+
 ## 1.2.4 / 2022-08-30
 
 * Mark that PHP 8.1.x is also supported - thanks @mxr576
