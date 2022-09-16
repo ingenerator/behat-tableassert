@@ -130,17 +130,17 @@ class HTMLStringTableParserTest extends TableParserTest
     public function provider_valid_html_tables()
     {
         return [
-            // Single header cell, no body rows
+            'Single header cell, no body rows' =>
             [
                 '<table><thead><tr><th>Header1</th></tr></thead><tbody></tbody></table>',
                 [['Header1']]
             ],
-            // Mix of th and td in header
+            'Mix of th and td in header' =>
             [
                 '<table><thead><tr><td>Header1</td><th>Header2</th></tr></thead><tbody></tbody></table>',
                 [['Header1', 'Header2']]
             ],
-            // Header and one row with mixed td and th
+            'Header and one row with mixed td and th' =>
             [
                 '<table>'.
                 '<thead><tr><td>Header1</td><th>Header2</th></tr></thead>'.
@@ -152,7 +152,7 @@ class HTMLStringTableParserTest extends TableParserTest
                     ['Cell1', 'Cell2']
                 ]
             ],
-            // Header and two rows, all td
+            'Header and two rows, all td' =>
             [
                 '<table>'.
                 '<thead><tr><td>Header1</td><td>Header2</td></tr></thead>'.
@@ -166,7 +166,7 @@ class HTMLStringTableParserTest extends TableParserTest
                     ['2.1', '2.2']
                 ]
             ],
-            // Header and one row, mixed th and td in head and body
+            'Header and one row, mixed th and td in head and body' =>
             [
                 '<table>'.
                 '<thead><tr><th>Header1</th><td>Header2</td></tr></thead>'.
@@ -178,48 +178,59 @@ class HTMLStringTableParserTest extends TableParserTest
                     ['1.1', '1.2'],
                 ]
             ],
-            // HTML escaped characters
+            'HTML escaped characters' =>
             [
                 '<table><thead><tr><th>One &amp; Two &gt; None</th></tr></thead><tbody></tbody></table>',
                 [
                     ['One & Two > None'],
                 ]
             ],
-            // Comments
+            'Comments' =>
             [
                 '<table><thead><tr><th>With <!--Comment --> inside</th></tr></thead><tbody></tbody></table>',
                 [
                     ['With inside'],
                 ]
             ],
-            // Unicode characters, unescaped
+            'Unicode characters, unescaped' =>
             [
                 '<table><thead><tr><th>It works ✓</th></tr></thead><tbody></tbody></table>',
                 [
                     ['It works ✓'],
                 ]
             ],
-            // Empty child nodes
+            'Empty child nodes' =>
             [
                 '<table><thead><tr><th>Nothing between <span></span> this</th></tr></thead><tbody></tbody></table>',
                 [
                     ['Nothing between this'],
                 ]
             ],
-            // Nested child nodes with text content
+            'Nested child nodes with text content' =>
             [
                 '<table><thead><tr><th>Nothing <span>between</span> this</th></tr></thead><tbody></tbody></table>',
                 [
                     ['Nothing between this'],
                 ]
             ],
-            // Cells containing (valid) unclosed HTML tags
+            'Cells containing (valid) unclosed HTML tags' =>
             [
                 '<table><thead><tr><th><input type="checkbox">Select</th></tr></thead><tbody></tbody></table>',
                 [
                     ['Select'],
                 ]
-            ]
+            ],
+            'Table with a "time" element' => [
+                '<table>'.
+                '<thead><tr><td>Header</td><th>Date</th></tr></thead>'.
+                '<tbody>'.
+                '<tr><td>Cell1</td><time datetime="2016-08-30T12:00:00Z">30 Aug 2016</time></tr>'.
+                '</tbody></table>',
+                [
+                  ['Header', 'Date'],
+                  ['Cell1', '30 Aug 2016']
+                ]
+            ],
         ];
     }
 
