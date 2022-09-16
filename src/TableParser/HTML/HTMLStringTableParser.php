@@ -9,6 +9,7 @@ namespace Ingenerator\BehatTableAssert\TableParser\HTML;
 
 use Ingenerator\BehatTableAssert\TableNode\PaddedTableNode;
 use LibXMLError;
+use Masterminds\HTML5;
 
 /**
  * Parses an HTML string for a <table> element into a TableNode. The table must have a single row
@@ -91,18 +92,15 @@ class HTMLStringTableParser
     {
         $old_use_internal_errors = \libxml_use_internal_errors(TRUE);
         try {
-            // Parse with DOMDocument and force to utf-8 character set, otherwise (valid) unclosed
-            // HTML tags (eg <input>) cause parsing warnings. Unfortunately this means actual
-            // invalid HTML is also accepted so very few parsing errors will be detected.
-            $document = new \DOMDocument;
-            $document->loadHTML(
-                '<!DOCTYPE html><html>'
-                .'<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>'
-                .'<body>'.\trim($html).'</body>'
-                .'</html>'
+            $html5 = new HTML5();
+            $dom = $html5->loadHTML(
+              '<!DOCTYPE html><html>'
+              .'<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>'
+              .'<body>'.\trim($html).'</body>'
+              .'</html>'
             );
 
-            $table_elem = $document->getElementsByTagName('body')->item(0)->firstChild;
+            $table_elem = $dom->getElementsByTagName('body')->item(0)->firstChild;
             $table      = \simplexml_import_dom($table_elem);
             if ($errors = \libxml_get_errors()) {
                 $this->throwInvalidHTMLException($html, $errors);
