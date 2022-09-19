@@ -1,0 +1,12 @@
+name: behat-tableassert
+config:
+  xdebug: true
+services:
+  php:
+    type: php:8.0
+    via: cli
+    xdebug: "debug,develop"
+
+env_file:
+  - .lando.env
+  - .lando.local.env
