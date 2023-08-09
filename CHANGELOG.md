@@ -4,6 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+* Support PHP 8.2
+* Drop support for PHP 7.4
+
 ## 1.2.5 / 2022-09-16
 
 * Switch to masterminds/html5 for HTML parsing to fix failures when the table contains
@@ -38,7 +41,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 1.1.1 / 2016-09-05
 
 * [BUGFIX]  Don't fail when HTML contains valid unclosed tags eg <input>
-  by parsing as HTML rather than XML. This unfortunately does mean the 
+  by parsing as HTML rather than XML. This unfortunately does mean the
   HTML parser is a lot more tolerant than it was and will usually not
   detect invalid HTML markup within the tables.
 
