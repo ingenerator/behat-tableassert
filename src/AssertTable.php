@@ -30,10 +30,10 @@ class AssertTable
     protected $formatter;
 
     /**
-     * @param \Ingenerator\BehatTableAssert\TableDiffer\TableDiffer|NULL   $differ
-     * @param \Ingenerator\BehatTableAssert\TableDiffer\DiffFormatter|NULL $formatter
+     * @param \Ingenerator\BehatTableAssert\TableDiffer\TableDiffer|null   $differ
+     * @param \Ingenerator\BehatTableAssert\TableDiffer\DiffFormatter|null $formatter
      */
-    public function __construct(TableDiffer $differ = NULL, DiffFormatter $formatter = NULL)
+    public function __construct(?TableDiffer $differ = NULL, ?DiffFormatter $formatter = NULL)
     {
         $this->differ    = $differ ?: new TableDiffer;
         $this->formatter = $formatter ?: new DiffFormatter;

@@ -63,7 +63,7 @@ class CSVStreamTableParser
     protected function readCSVRows($stream)
     {
         $rows = [];
-        while ($row = \fgetcsv($stream)) {
+        while ($row = \fgetcsv($stream, 0, ',', '"', '\\')) {
             if ($row === [NULL]) {
                 $row = [];
             }
