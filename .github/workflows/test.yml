@@ -18,6 +18,7 @@ jobs:
           - '8.1'
           - '8.2'
           - '8.3'
+          - '8.4'
         dependencies:
           - 'default'
         include:
@@ -28,6 +29,8 @@ jobs:
           - php_version: '8.2'
             dependencies: 'lowest'
           - php_version: '8.3'
+            dependencies: 'lowest'
+          - php_version: '8.4'
             dependencies: 'lowest'
     steps:
       - name: Setup PHP
@@ -44,7 +47,7 @@ jobs:
         run: |
           echo "::set-output name=dir::$(composer config cache-files-dir)"
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{matrix.php_version}}-${{ matrix.dependencies }}-${{ hashFiles('**/composer.json') }}
