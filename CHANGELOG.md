@@ -4,9 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
-## 1.3.2 / 2025-04-29
+## 1.3.2 / 2025-05-06
 
-* Support PHP 8.4
+* Support PHP 8.4 (thanks @mharmuth)
 
 ## 1.3.1 / 2024-09-03
 
