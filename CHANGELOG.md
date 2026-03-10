@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## 1.3.3 / 2026-03-10
+
+* Fix handling and reporting parse errors when parsing an html table.
+
 ## 1.3.2 / 2025-05-06
 
 * Support PHP 8.4 (thanks @mharmuth)

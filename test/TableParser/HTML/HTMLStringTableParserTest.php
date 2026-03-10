@@ -35,37 +35,16 @@ class HTMLStringTableParserTest extends TableParserTest
     }
 
     /**
-     * @testWith ["random", false]
-     *           ["random", true]
-     *           ["<div></div>", false]
-     *           ["<table><thead><tr><td>1</td></tr></thead><tbody></tbody></table>", false]
+     * @testWith ["random text", "Expected html root element but got DOMText"]
+     *           ["<div><17sd>illegal tag name</17sd></div>", "Invalid HTML:\n - Line 1, Col 113: Illegal tag opening"]
+     *           ["<div></div>", "Expected a <table> but got div"]
      */
-    public function test_it_always_restores_state_of_libxml_error_handling(
-        $html,
-        $use_errors_before
-    ) {
-        $old_setting = \libxml_use_internal_errors($use_errors_before);
-        try {
-            $this->newSubject()->parse($html);
-        } catch (\Exception $e) { /* ignore */
-        }
-        $errors_after     = \libxml_get_errors();
-        $use_errors_after = \libxml_use_internal_errors($old_setting);
-
-        $this->assertSame([], $errors_after, 'Should clear libxml errors');
-        $this->assertEquals(
-            $use_errors_before,
-            $use_errors_after,
-            'Should restore libxml_use_internal_errors'
-        );
-    }
-
-    public function test_it_throws_when_parsing_html_that_is_not_a_table()
+    public function test_it_throws_when_parsing_html_that_is_not_a_table_or_not_valid(string $input, string $expect_msg)
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Expected a <table>');
+        $this->expectExceptionMessage($expect_msg);
 
-        $this->newSubject()->parse('<div></div>');
+        $this->newSubject()->parse($input);
     }
 
     public function test_it_throws_when_parsing_table_without_thead()
