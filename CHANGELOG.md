@@ -4,6 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+* Use native `HTMLDocument` parsing instead of masterminds/html5
 * Drop support for PHP < 8.4 (to allow us to use native HTML parsing)
 
 ## 1.3.3 / 2026-03-10

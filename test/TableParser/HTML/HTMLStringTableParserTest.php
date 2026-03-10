@@ -35,8 +35,8 @@ class HTMLStringTableParserTest extends TableParserTest
     }
 
     /**
-     * @testWith ["random text", "Expected html root element but got DOMText"]
-     *           ["<div><17sd>illegal tag name</17sd></div>", "Invalid HTML:\n - Line 1, Col 113: Illegal tag opening"]
+     * @testWith ["random text", "Expected html root element but got Dom\\Text"]
+     *           ["<div><17sd>illegal tag name</17sd></div>", "Invalid HTML: Dom\\HTMLDocument::createFromString(): tokenizer error invalid-first-character-of-tag-name"]
      *           ["<div></div>", "Expected a <table> but got div"]
      */
     public function test_it_throws_when_parsing_html_that_is_not_a_table_or_not_valid(string $input, string $expect_msg)

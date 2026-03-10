@@ -9,6 +9,7 @@ namespace Ingenerator\BehatTableAssert\TableParser\HTML;
 
 use Behat\Gherkin\Node\TableNode;
 use Dom\HTMLDocument;
+use Dom\HTMLElement;
 use Ingenerator\BehatTableAssert\TableNode\PaddedTableNode;
 use LibXMLError;
 use Masterminds\HTML5;
@@ -93,31 +94,37 @@ class HTMLStringTableParser
      */
     protected function parseHTMLString($html)
     {
-        $html5 = new HTML5();
-        $dom = $html5->loadHTML(
-            '<!DOCTYPE html><html>'
-            .'<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>'
-            .'<body>'.\trim($html).'</body>'
-            .'</html>',
-        );
+        try {
+            set_error_handler(
+                fn($errno, $errstr) => throw new \InvalidArgumentException(
+                    sprintf("Invalid HTML: %s\n\n===HTML===\n%s", $errstr, $html),
+                ),
+            );
+
+            $dom = HTMLDocument::createFromString(
+                sprintf(
+                    <<<'HTML'
+                    <!DOCTYPE html>
+                    <html>
+                    <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+                    <body>%s</body>
+                    </html>
+                    HTML,
+                    trim($html),
+                ),
+            );
+        } finally {
+            restore_error_handler();
+        }
 
         $table_elem = $dom->getElementsByTagName('body')->item(0)->firstChild;
 
-        if (!$table_elem instanceof \DOMElement) {
+        if (!$table_elem instanceof HTMLElement) {
             throw new \InvalidArgumentException(
                 sprintf("Expected html root element but got %s\n\n===HTML===\n%s", get_debug_type($table_elem), $html),
             );
         }
         $table = \simplexml_import_dom($table_elem);
-        if ($errors = $html5->getErrors()) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid HTML:\n%s\n\n===HTML===\n%s",
-                    implode("\n", array_map(fn($err) => ' - '.$err, $errors)),
-                    $html,
-                ),
-            );
-        }
 
         return $table;
     }
@@ -231,7 +238,7 @@ class HTMLStringTableParser
      */
     protected function parseCellText(\SimpleXmlElement $cell)
     {
-        $text = \trim(\preg_replace('/\s+/', ' ', \dom_import_simplexml($cell)->textContent));
+        $text = \trim(\preg_replace('/\s+/', ' ', import_simplexml($cell)->textContent));
 
         if ($prefix = (string) $cell['data-behat-table-prefix']) {
             $text = $prefix.' '.$text;
