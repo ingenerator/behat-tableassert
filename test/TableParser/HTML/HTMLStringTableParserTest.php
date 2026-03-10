@@ -224,7 +224,7 @@ class HTMLStringTableParserTest extends TableParserTest
                 '<table>'.
                 '<thead><tr><td>Header</td><th>Date</th></tr></thead>'.
                 '<tbody>'.
-                '<tr><td>Cell1</td><time datetime="2016-08-30T12:00:00Z">30 Aug 2016</time></tr>'.
+                '<tr><td>Cell1</td><td><time datetime="2016-08-30T12:00:00Z">30 Aug 2016</time></td></tr>'.
                 '</tbody></table>',
                 [
                   ['Header', 'Date'],
